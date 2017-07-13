@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ant">
+    <target name="main">
+        <javac srcdir="./src" destdir="./classes"/>
+        <java classname="Main" classpath="./classes"/>
+    </target>
+</project>

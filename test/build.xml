@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BuildFileValidator" default="main">
+    <property file="build.properties"/>
+
+    <taskdef name="buildfilevalidator" classpath="${deps.dir}/${distrib.file}" classname="${validator.class}"></taskdef>
+    <typedef name="buildfile" classpath="${deps.dir}/${distrib.file}" classname="by.training.validators.BuildFileValidator$BuildFile"/>
+
+    <target name="main" depends="validate-buildfile">
+    </target>
+
+    <target name="compile" >
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" classpath="${deps.dir}/${ant.jar}" destdir="${build.dir}" includeantruntime="false"/>
+    </target>
+
+    <target name="buildjar_" depends="compile">
+        <jar basedir="${build.dir}" destfile="${deps.dir}/${distrib.file}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${distrib.dir}"/>
+    </target>
+
+    <target name="validate-buildfile">
+        <buildfilevalidator checknames="true">
+            <buildfile location="./build.xml"/>
+            <buildfile location="./build2.xml" />
+        </buildfilevalidator>
+
+    </target>
+
+</project>
